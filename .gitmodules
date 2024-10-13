@@ -1,0 +1,6 @@
+[submodule "exo"]
+	path = exo
+	url = git@github.com:exo-lang/exo.git
+[submodule "ExoBLAS"]
+	path = ExoBLAS
+	url = git@github.com:exo-lang/ExoBLAS.git
