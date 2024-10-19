@@ -9,7 +9,7 @@ Source tarball on Zenodo can be found [here](...).
 
 ## Functional
 
-Documentation of Exo can be found in [docs](https://github.com/exo-lang/exo/tree/main/docs), as well as [examples](https://github.com/exo-lang/exo/tree/main/examples) that walk through Exo's usage.
+The detailed documentation of Exo can be found in [docs](https://github.com/exo-lang/exo/tree/main/docs), as well as [examples](https://github.com/exo-lang/exo/tree/main/examples) that walk through Exo's usage.
 For artifact evaluation, we made a [small example](functional.py) which demonstrates core functionalities of Cursor as discussed in the paper.
 
 First, install Exo:
@@ -29,7 +29,7 @@ You should be able to find examples from the paper as well as more detailed docu
 
 Since we support many kernels on three different hardware targets and compared with existing libraries, we marked especially time-consuming evaluation as optional. It's up to reviewers if they wish to take on that journey or not.
 
-In case you have a trouble installing dependencies (Halide, LLVM, Google benchmark, OpenBLAS, MKL) on your local machine, we prepared a AWS server with all the repo setup. Private key should be found in the artifact evaluation website. If you cannot find it, contact Yuka Ikarashi at [yuka@csail.mit.edu](mailto:yuka@csail.mit.edu).
+In case you have a trouble installing dependencies (Halide, LLVM, Google benchmark, OpenBLAS, MKL) on your local machine, **we prepared a AWS server with all the dependency setup**. Private key should be found in the artifact evaluation website. If you cannot find it, contact Yuka Ikarashi at [yuka@csail.mit.edu](mailto:yuka@csail.mit.edu).
 
 To reproduce main results of paper, clone this repo.
 ```
