@@ -4,3 +4,6 @@
 [submodule "ExoBLAS"]
 	path = ExoBLAS
 	url = git@github.com:exo-lang/ExoBLAS.git
+[submodule "Halide"]
+	path = Halide
+	url = git@github.com:exo-lang/Halide.git
