@@ -48,11 +48,19 @@ Run whatever apps/Halide thing which shouldn't be that bad
 First, you will need to install Halide on your local machine. Download the appropriate Halide release 16.0.0 from the [Halide Github](https://github.com/halide/Halide/releases/tag/v16.0.0) and untar it. Then, set the environment variable `Halide_DIR=<path/to/release>`. You should not need to build Halide from source to run the benchmarks.
 
 Now, to compare the performance of the Exo-generated kernels against the Halide-generated kernels. Navigate to `Halide/app/<kernel>/`. Create a folder called `exo_<kernel>`, and copy over the exo-generated `<kernel>.c` and `<kernel>.h` files (see previous section) into that folder. Create a folder called `build/` and run `cmake ..` and `make` from within the `build/` folder. Then, run `Halide/app/<kernel>/benchmark.sh` to run our suite of benchmarks between the Exo and Halide generated kernels.
+For example, for blur run the following (TODO: edit):
+```
+~/exo2-artifact/Halide/apps/blur$ ./benchmark.sh > blur.txt
+~/exo2-artifact/Halide/apps$ python3 format_benchmark_output.py blur/blur.txt
+```
+
+If you want to generate graphs, cat those outputs into `.txt` files and then run `Halide/apps/format_benchmark_output.py`  on those output files
 
 ### Build BLAS library (Optional)
 
 ####  Install requirements
 
+- Python requirements `python3 -m pip install -r requirements.txt`
 - `cmake` with version 3.23 or higher is required.
 - Install Ninja (on Ubuntu it's `apt install ninja-build`)
 - Install OpenBLAS (on Ubuntu it's `apt install libopenblas-dev`) or MKL.
@@ -72,7 +80,7 @@ cmake --preset avx512
 cmake --build build/avx512/
 ```
 If you want to build ExoBLAS for avx2, change the above avx512 to avx2.
-
+Note that ExoBLAS contains more kernels than what was reported in the paper.
 
 #### Run performance benchmark against OpenBLAS and MKL (Optional, highly time-consuming)
 
@@ -91,5 +99,9 @@ Unfortunately, we are not able to provide reproduction scripts for our GEMMINI t
 
 Go to Exo, checkout `count_rewrites` branch and run Halide and BLAS build again.
 You'll need to rebuild Exo from scratch:
-
+```
+python3 -m pip uninstall exo-lang
+python3 -m build .
+python3 -m pip install dist/*.whl
+```
 
