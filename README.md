@@ -21,6 +21,7 @@ And run `functional.py`:
 ```
 exocc functional.py
 ```
+In case of `ModuleNotFoundError: No module named 'attrs'` please upgrade your attrs module by `pip install --upgrade attrs`.
 
 You should be able to find examples from the paper as well as more detailed documentation in the source code.
 
@@ -29,7 +30,8 @@ You should be able to find examples from the paper as well as more detailed docu
 
 Since we support many kernels on three different hardware targets and compared with existing libraries, we marked especially time-consuming evaluation as optional. It's up to reviewers if they wish to take on that journey or not.
 
-In case you have a trouble installing dependencies (Halide, LLVM, Google benchmark, OpenBLAS, MKL) on your local machine, **we prepared a AWS server with all the dependency setup**. Private key should be found in the artifact evaluation website. If you cannot find it, contact Yuka Ikarashi at [yuka@csail.mit.edu](mailto:yuka@csail.mit.edu).
+In case you have a trouble installing dependencies (Halide, Google benchmark, cmake>=3.23, OpenBLAS, MKL) on your local machine, **we prepared a AWS server with all the dependency setup**. Private key should be found in the artifact evaluation website. If you cannot find it, contact Yuka Ikarashi at [yuka@csail.mit.edu](mailto:yuka@csail.mit.edu).
+We checked all the builds on Ubuntu 22.04.5 LTS.
 
 To reproduce main results of paper, clone this repo.
 ```
@@ -43,16 +45,42 @@ Run whatever apps/Halide thing which shouldn't be that bad
 
 #### Run performance benchmark against Halide (Optional)
 
-First you need to install Halide (and LLVM as its dependency) on your local machine.
-We will outline what worked for our AWS server (Ubuntu 18.08) but the installation process will be different depending on your hardware, OS, and existing environment.
-The best place to find the Halide documentation is [README](https://github.com/halide/Halide) and the [build docs](https://github.com/halide/Halide/blob/main/doc/BuildingHalideWithCMake.md).
+First, you will need to install Halide on your local machine. Download the appropriate Halide release 16.0.0 from the [Halide Github](https://github.com/halide/Halide/releases/tag/v16.0.0) and untar it. Then, set the environment variable `Halide_DIR=<path/to/release>`. You should not need to build Halide from source to run the benchmarks.
 
+Now, to compare the performance of the Exo-generated kernels against the Halide-generated kernels. Navigate to `Halide/app/<kernel>/`. Create a folder called `exo_<kernel>`, and copy over the exo-generated `<kernel>.c` and `<kernel>.h` files (see previous section) into that folder. Create a folder called `build/` and run `cmake ..` and `make` from within the `build/` folder. Then, run `Halide/app/<kernel>/benchmark.sh` to run our suite of benchmarks between the Exo and Halide generated kernels.
 
+### Build BLAS library (Optional)
 
-### Build BLAS library
+####  Install requirements
+
+- `cmake` with version 3.23 or higher is required.
+- Install Ninja (on Ubuntu it's `apt install ninja-build`)
+- Install OpenBLAS (on Ubuntu it's `apt install libopenblas-dev`) or MKL.
+- Install Google benchmark as following:
+```
+$ git clone https://github.com/google/benchmark
+$ cmake -S benchmark -B benchmark/build -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_ENABLE_TESTING=NO
+$ cmake --build benchmark/build
+$ cmake --install benchmark/build --prefix ~/.local
+```
+
+#### Building ExoBLAS library
+
+After installing the requirements, go to `exo2-artifact/ExoBLAS` and run the following to build the library for avx512 target.
+```
+cmake --preset avx512
+cmake --build build/avx512/
+```
+If you want to build ExoBLAS for avx2, change the above avx512 to avx2.
 
 
 #### Run performance benchmark against OpenBLAS and MKL (Optional, highly time-consuming)
+
+If you want to compare the performance against another BLAS library (e.g., MKL), you need to rerun the preset command as follows:
+```
+$ cmake --preset avx2 -DBLA_VENDOR=OpenBLAS # use OpenBLAS as a reference
+$ cmake --preset avx2 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
+```
 
 
 ### Build GEMMINI library
@@ -62,5 +90,6 @@ Unfortunately, we are not able to provide reproduction scripts for our GEMMINI t
 #### Count the number of rewrites (Optional)
 
 Go to Exo, checkout `count_rewrites` branch and run Halide and BLAS build again.
+You'll need to rebuild Exo from scratch:
 
 
