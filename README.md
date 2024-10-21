@@ -46,6 +46,9 @@ Run whatever apps/Halide thing which shouldn't be that bad
 #### Run performance benchmark against Halide (Optional)
 
 First, you will need to install Halide on your local machine. Download the appropriate Halide release 16.0.0 from the [Halide Github](https://github.com/halide/Halide/releases/tag/v16.0.0) and untar it. Then, set the environment variable `Halide_DIR=<path/to/release>`. You should not need to build Halide from source to run the benchmarks.
+```
+export Halide_DIR=/home/ubuntu/Halide-16.0.0-x86-64-linux
+```
 
 Now, to compare the performance of the Exo-generated kernels against the Halide-generated kernels. Navigate to `Halide/app/<kernel>/`. Create a folder called `exo_<kernel>`, and copy over the exo-generated `<kernel>.c` and `<kernel>.h` files (see previous section) into that folder. Create a folder called `build/` and run `cmake ..` and `make` from within the `build/` folder. Then, run `Halide/app/<kernel>/benchmark.sh` to run our suite of benchmarks between the Exo and Halide generated kernels.
 For example, for blur run the following (TODO: edit):
@@ -63,7 +66,10 @@ If you want to generate graphs, cat those outputs into `.txt` files and then run
 - Python requirements `python3 -m pip install -r requirements.txt`
 - `cmake` with version 3.23 or higher is required.
 - Install Ninja (on Ubuntu it's `apt install ninja-build`)
-- Install OpenBLAS (on Ubuntu it's `apt install libopenblas-dev`) or MKL (follow [Intel's instruction](https://www.intel.com/content/www/us/en/developer/articles/guide/installing-free-libraries-and-python-apt-repo.html) to install MKL).
+- Install OpenBLAS (on Ubuntu it's `apt install libopenblas-dev`) or MKL (follow [Intel's instruction](https://www.intel.com/content/www/us/en/developer/articles/guide/installing-free-libraries-and-python-apt-repo.html) to install MKL). We installed intel-mkl-2018.2-046 as mentioned in the MKL documentation.
+```
+export MKLROOT=/opt/intel/mkl
+```
 - Install Google benchmark as following:
 ```
 $ git clone https://github.com/google/benchmark
@@ -86,22 +92,22 @@ Note that ExoBLAS contains more kernels than what was reported in the paper.
 
 To run the benchmark for ExoBLAS only:
 ```
-ctest --test-dir ./build/avx2 -V -R exo_[KERNEL]_bench # Run ExoBLAS benchmark for [KERNEL]
-ctest --test-dir ./build/avx2 -V -R exo_ # Run ExoBLAS benchmark for all kernels
+ctest --test-dir ./build/avx512 -V -R exo_[KERNEL]_bench # Run ExoBLAS benchmark for [KERNEL]
+ctest --test-dir ./build/avx512 -V -R exo_ # Run ExoBLAS benchmark for all kernels
 ```
 
 To run the benchmark for the reference BLAS library only:
 
 ```
-ctest --test-dir ./build/avx2 -V -R cblas_[KERNEL]_bench # Run reference benchmark for [KERNEL]
-ctest --test-dir ./build/avx2 -V -R cblas_ # Run the reference benchmark for all kernels
+ctest --test-dir ./build/avx512 -V -R cblas_[KERNEL]_bench # Run reference benchmark for [KERNEL]
+ctest --test-dir ./build/avx512 -V -R cblas_ # Run the reference benchmark for all kernels
 ```
 
 
 If you want to compare the performance against another BLAS library (e.g., MKL), you need to rerun the preset command as follows:
 ```
-$ cmake --preset avx2 -DBLA_VENDOR=OpenBLAS # use OpenBLAS as a reference
-$ cmake --preset avx2 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
+$ cmake --preset avx512 -DBLA_VENDOR=OpenBLAS # use OpenBLAS as a reference
+$ cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
 ```
 
 
