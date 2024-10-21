@@ -84,6 +84,20 @@ Note that ExoBLAS contains more kernels than what was reported in the paper.
 
 #### Run performance benchmark against OpenBLAS and MKL (Optional, highly time-consuming)
 
+To run the benchmark for ExoBLAS only:
+```
+ctest --test-dir ./build/avx2 -V -R exo_[KERNEL]_bench # Run ExoBLAS benchmark for [KERNEL]
+ctest --test-dir ./build/avx2 -V -R exo_ # Run ExoBLAS benchmark for all kernels
+```
+
+To run the benchmark for the reference BLAS library only:
+
+```
+ctest --test-dir ./build/avx2 -V -R cblas_[KERNEL]_bench # Run reference benchmark for [KERNEL]
+ctest --test-dir ./build/avx2 -V -R cblas_ # Run the reference benchmark for all kernels
+```
+
+
 If you want to compare the performance against another BLAS library (e.g., MKL), you need to rerun the preset command as follows:
 ```
 $ cmake --preset avx2 -DBLA_VENDOR=OpenBLAS # use OpenBLAS as a reference
