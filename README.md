@@ -63,7 +63,7 @@ If you want to generate graphs, cat those outputs into `.txt` files and then run
 - Python requirements `python3 -m pip install -r requirements.txt`
 - `cmake` with version 3.23 or higher is required.
 - Install Ninja (on Ubuntu it's `apt install ninja-build`)
-- Install OpenBLAS (on Ubuntu it's `apt install libopenblas-dev`) or MKL.
+- Install OpenBLAS (on Ubuntu it's `apt install libopenblas-dev`) or MKL (follow [Intel's instruction](https://www.intel.com/content/www/us/en/developer/articles/guide/installing-free-libraries-and-python-apt-repo.html) to install MKL).
 - Install Google benchmark as following:
 ```
 $ git clone https://github.com/google/benchmark
