@@ -51,11 +51,16 @@ export Halide_DIR=/home/ubuntu/Halide-16.0.0-x86-64-linux
 ```
 
 Now, to compare the performance of the Exo-generated kernels against the Halide-generated kernels. Navigate to `Halide/app/<kernel>/`. Create a folder called `exo_<kernel>`, and copy over the exo-generated `<kernel>.c` and `<kernel>.h` files (see previous section) into that folder. Create a folder called `build/` and run `cmake ..` and `make` from within the `build/` folder. Then, run `Halide/app/<kernel>/benchmark.sh` to run our suite of benchmarks between the Exo and Halide generated kernels.
-For example, for blur run the following (TODO: edit):
+For example, for blur run the following:
 ```
-~/exo2-artifact/Halide/apps/blur$ ./benchmark.sh > blur.txt
-~/exo2-artifact/Halide/apps$ python3 format_benchmark_output.py blur/blur.txt
+cd exo2-artifact/Halide/apps/blur
+mkdir build && cd build
+cmake .. && make
+cd ..
+./benchmark.sh > results.txt
+cat results.txt | python3 ../format_benchmark_output.py blur
 ```
+Exactly the same for unsharp.
 
 If you want to generate graphs, cat those outputs into `.txt` files and then run `Halide/apps/format_benchmark_output.py`  on those output files
 
@@ -108,6 +113,19 @@ If you want to compare the performance against another BLAS library (e.g., MKL),
 ```
 $ cmake --preset avx512 -DBLA_VENDOR=OpenBLAS # use OpenBLAS as a reference
 $ cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
+```
+
+#### Plot the graphs (Highly optional)
+
+Document how to use the graphing script!!
+Plot the indivusual kernel like so
+```
+python3.9 analytics_tools/graphing/graph.py gemv
+```
+
+Plot all the kernels like so
+```
+python3.9 analytics_tools/graphing/graph.py all
 ```
 
 
