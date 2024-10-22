@@ -117,15 +117,28 @@ $ cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
 
 #### Plot the graphs (Highly optional)
 
+To run the graph script, you'll need to install Linux Libertine font.
+```
+sudo apt-get install fonts-linuxlibertine
+fc-cache -f -v
+rm ~/.cache/matplotlib/fontlist-*.json
+```
+
 Document how to use the graphing script!!
 Plot the indivusual kernel like so
 ```
-python3.9 analytics_tools/graphing/graph.py gemv
+python3.9 analytics_tools/graphing/graph.py gemv AVX2 avx2_benchmark_results_skinny
 ```
 
 Plot all the kernels like so
 ```
-python3.9 analytics_tools/graphing/graph.py all
+python3.9 analytics_tools/graphing/graph.py all AVX2 avx2_benchmark_results_skinny
+```
+
+Copy to your local mac and check the output
+```
+cd /Users/yuka/aws/ubuchan
+scp -r yuka@100.86.184.86:/home/yuka/ExoBLAS/analytics_tools/graphing/graphs/ .
 ```
 
 
