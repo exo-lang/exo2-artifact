@@ -95,6 +95,11 @@ Note that ExoBLAS contains more kernels than what was reported in the paper.
 
 #### Run performance benchmark against OpenBLAS and MKL (Optional, highly time-consuming)
 
+Compile all the benchmark tests
+```
+cmake --build build/avx2 --target _bench
+```
+
 To run the benchmark for ExoBLAS only:
 ```
 ctest --test-dir ./build/avx512 -V -R exo_[KERNEL]_bench # Run ExoBLAS benchmark for [KERNEL]
