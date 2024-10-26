@@ -64,6 +64,14 @@ Exactly the same for unsharp.
 
 If you want to generate graphs, cat those outputs into `.txt` files and then run `Halide/apps/format_benchmark_output.py`  on those output files
 
+#### Run AVX512 GEMM benchmark
+
+TODO: Write
+
+
+
+---
+
 ### Build BLAS library (Optional)
 
 ####  Install requirements
@@ -129,6 +137,11 @@ fc-cache -f -v
 rm ~/.cache/matplotlib/fontlist-*.json
 ```
 
+Organize the `benchmark_results` directory.
+```
+./analytics_tools/graphing/organize.sh benchmark_results
+```
+
 Document how to use the graphing script!!
 Plot the indivusual kernel like so
 ```
@@ -147,11 +160,14 @@ scp -r yuka@100.86.184.86:/home/yuka/ExoBLAS/analytics_tools/graphing/graphs/ .
 ```
 
 
+---
+
+
 ### Build GEMMINI library
 Unfortunately, we are not able to provide reproduction scripts for our GEMMINI timings because they require access to prototype hardware. However, Exo can still generate GEMMINI C code, and reviewers can take a look at the generated C code and the scheduling transformation needed to reach the reported number in the paper.
 
 
-#### Count the number of rewrites (Optional)
+### Count the number of rewrites (Optional)
 
 Go to Exo, checkout `count_rewrites` branch and run Halide and BLAS build again.
 You'll need to rebuild Exo from scratch:
