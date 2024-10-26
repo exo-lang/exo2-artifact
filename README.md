@@ -7,10 +7,7 @@ To avoid confusion, we refer to Exo 2 simply as Exo in this documentation.
 ## Availability
 
 [Exo](https://github.com/exo-lang/exo) and [ExoBLAS](https://github.com/exo-lang/ExoBLAS), our BLAS library implementation, are both publicly available on GitHub and are submodules of this artifact evaluation repository.
-The Zenodo archive can be found [here](https://zenodo.org/records/13997026). It contains a source tarball of this repository, created using the following command:
-```
-git archive --format=tar.gz -o $(basename $PWD).tar.gz --prefix=$(basename $PWD)/ main
-```
+The Zenodo archive can be found [here](https://zenodo.org/records/13997026), which contains a source tarball of this repository.
 
 
 ---
@@ -109,80 +106,77 @@ $ cmake --install benchmark/build --prefix ~/.local
 ```
 
 
-#### Building ExoBLAS library
+#### Building the ExoBLAS Library
 
-After installing the requirements, go to `exo2-artifact/ExoBLAS` and run the following to build the library for avx512 target.
-```
+After installing the requirements, navigate to the `exo2-artifact/ExoBLAS` directory and run the following commands to build the library for the AVX-512 target:
+```bash
 cmake --preset avx512
 cmake --build build/avx512/
 ```
-If you want to build ExoBLAS for avx2, change the above avx512 to avx2.
-Note that ExoBLAS contains more kernels than what was reported in the paper.
 
-#### Run performance benchmark against OpenBLAS and MKL (Optional, highly time-consuming)
+If unspecified in the `cmake --preset` command, CMake will attempt to find an existing BLAS implementation to link against.
+If you wish to control which existing library to compare the performance against, you can use the `-DBLA_VENDOR` option as follows:
+```bash
+$ cmake --preset avx512 -DBLA_VENDOR=OpenBLAS         # Use OpenBLAS as a reference
+$ cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
+$ cmake --preset avx512 -DBLA_VENDOR=FLAME            # Use BLIS as a reference
+```
 
-Compile all the benchmark tests
+The subsequent explanations assume that you have built ExoBLAS for AVX-512 instructions to reproduce the AVX-512 results presented in the paper. However, if you wish to reproduce the AVX2 results instead, simply replace all occurrences of `avx512` with `avx2` in the following instructions.
+
+
+#### Counting Lines of Code
+
+The following script counts the lines of code for the BLAS library, as reported in Figure 8 (a):
+```bash
+python3 analytics_tools/loc/count_loc.py
+```
+
+Please note that this script will print out more kernels than what was reported in the paper, as ExoBLAS supports a superset of kernels compared to those included in the paper.
+
+
+#### Run performance benchmark against existing libraries (Optional, highly time-consuming)
+
+Compile all the benchmark tests (Check if this is necessary or not!)
 ```
 cmake --build build/avx2 --target _bench
 ```
 
-To run the benchmark for ExoBLAS only:
+To run the benchmark for Exo generated kernels:
 ```
-ctest --test-dir ./build/avx512 -V -R exo_[KERNEL]_bench # Run ExoBLAS benchmark for [KERNEL]
-ctest --test-dir ./build/avx512 -V -R exo_ # Run ExoBLAS benchmark for all kernels
-```
-
-To run the benchmark for the reference BLAS library only:
-
-```
-ctest --test-dir ./build/avx512 -V -R cblas_[KERNEL]_bench # Run reference benchmark for [KERNEL]
-ctest --test-dir ./build/avx512 -V -R cblas_ # Run the reference benchmark for all kernels
+ctest --test-dir ./build/avx512 -R exo_
 ```
 
-
-If you want to compare the performance against another BLAS library (e.g., MKL), you need to rerun the preset command as follows:
+To run the benchmark for the reference BLAS library:
 ```
-$ cmake --preset avx512 -DBLA_VENDOR=OpenBLAS # use OpenBLAS as a reference
-$ cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
+ctest --test-dir ./build/avx512 -R cblas_
 ```
 
-#### Plot the graphs (Highly optional)
+This will create a `benchmark_results` directory containing json files.
 
-To run the graph script, you'll need to install Linux Libertine font.
-```
+
+#### Plotting the Graphs (Optional)
+
+To run the graph script, you'll need to install the Linux Libertine font:
+```bash
 sudo apt-get install fonts-linuxlibertine
 fc-cache -f -v
 rm ~/.cache/matplotlib/fontlist-*.json
 ```
 
-Organize the `benchmark_results` directory.
-```
+Organize the `benchmark_results` directory:
+```bash
 ./analytics_tools/graphing/organize.sh benchmark_results
 ```
 
-Document how to use the graphing script!!
-Plot the indivusual kernel like so
-```
-python3.9 analytics_tools/graphing/graph.py gemv AVX2 avx2_benchmark_results_skinny
-```
-
-Plot all the kernels like so
-```
-python3.9 analytics_tools/graphing/graph.py all AVX2 avx2_benchmark_results_skinny
+Plot all the kernels using the following command:
+```bash
+python3 analytics_tools/graphing/graph.py all AVX512 benchmark_results
 ```
 
-Copy to your local mac and check the output
-```
-cd /Users/yuka/aws/ubuchan
-scp -r yuka@100.86.184.86:/home/yuka/ExoBLAS/analytics_tools/graphing/graphs/ .
-```
+The graphs will be generated in the `analytics_tools/graphing/` directory.
+After generating the graphs, you can copy them to your local machine using the `scp` command to review the output.
 
-
-#### Count Lines of Code of BLAS lib
-
-Figure 8 (a).
-
-...
 
 
 ---
