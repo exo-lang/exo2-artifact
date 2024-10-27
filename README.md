@@ -208,7 +208,7 @@ After generating the graphs, you can copy them to your local machine using the `
 
 ---
 
-### Run AVX512 GEMM benchmark
+### AVX512 matmul benchmark
 
 Figure 4(b).
 
@@ -218,26 +218,52 @@ TODO: Write
 
 ---
 
-### Build GEMMINI library
 
-Figure 4(a) and part of 4(c).
+### Gemmini matmul benchmark
 
-Unfortunately, we are not able to provide reproduction scripts for our GEMMINI timings because they require access to prototype hardware. However, Exo can still generate GEMMINI C code, and reviewers can take a look at the generated C code and the scheduling transformation needed to reach the reported number in the paper.
+This section provides data for Figure 4(a) and part of Figure 4(c).
 
+Unfortunately, we are not able to provide reproduction scripts for our Gemmini timings because they require access to expensive FPGA AWS instances (Firesim). However, Exo can still generate Gemmini C code, and reviewers can take a look at the generated C code and the scheduling transformation needed to reach the reported number in the paper.
+
+To view the original and scheduled matmul for Gemmini:
+
+1. Navigate to the `asplos25` directory:
+   ```bash
+   cd ~/exo2-artifact/exo/tests/asplos25
+   ```
+
+2. Run the `test_gemmini_matmul_new.py` script with pytest:
+   ```bash
+   python3 -m pytest test_gemmini_matmul_new.py -s
+   ```
+   The script will print the original and scheduled matmul for Gemmini.
 
 ---
 
-### Count the number of rewrites (Optional)
+### Count the number of rewrites (Optional, time-consuming)
 
-Figure 8(b).
+This section reproduces the data for Figure 8(b).
 
-Go to Exo, checkout `count_rewrites` branch and run Halide and BLAS build again.
-You'll need to rebuild Exo from scratch:
-```
-python3 -m pip uninstall exo-lang
-python3 -m build .
-python3 -m pip install dist/*.whl
-```
+1. Navigate to the Exo directory:
+   ```bash
+   cd ~/exo2-artifact/exo
+   ```
 
+2. Checkout the `count_rewrites` branch:
+   ```bash
+   git checkout count_rewrites
+   ```
 
+3. Rebuild and install Exo:
+   ```bash
+   python3 -m pip uninstall exo-lang
+   python3 -m build .
+   python3 -m pip install dist/*.whl
+   ```
+
+4. Rerun the Halide and BLAS builds as shown in the previous sections.
+   - For Halide, follow the steps in the "Halide library" section.
+   - For BLAS, follow the steps in the "BLAS library" section.
+
+5. The number of primitive rewrites will be printed to the standard output (stdout) during the build process.
 
