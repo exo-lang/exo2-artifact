@@ -63,22 +63,16 @@ This section reproduces Figure 10.
 
 #### Generate blur and unsharp kernels with Exo
 
-1. Navigate to the blur directory:
+1. Generate `blur.c` using Exo:
    ```bash
    cd ~/exo2-artifact/exo/apps/x86/halide/blur
-   ```
-2. Run `exocc` on `blur.py` (Exo's implementation of blur):
-   ```bash
    exocc blur.py
    ```
    This will generate `blur/blur.c`.
 
-3. Navigate to the unsharp directory:
+2. Generate `unsharp.c` using Exo:
    ```bash
    cd ~/exo2-artifact/exo/apps/x86/halide/unsharp
-   ```
-4. Run `exocc` on `unsharp.py`:
-   ```bash
    exocc unsharp.py
    ```
 
@@ -94,7 +88,7 @@ This section reproduces Figure 10.
      Note: You should not need to build Halide from source to run the benchmarks.
 
 2. Compare the performance of the Exo-generated kernels against the Halide-generated kernels:
-   - Navigate to `Halide/app/<kernel>/`.
+   - Navigate to `~/exo2-artifact/Halide/app/<kernel>/`.
    - Create a folder called `exo_<kernel>`.
    - Copy the Exo-generated `<kernel>.c` and `<kernel>.h` files (from the previous section) into the `exo_<kernel>` folder.
    - Create a folder called `build/` and navigate into it.
@@ -115,7 +109,6 @@ This section reproduces Figure 10.
 3. (Optional) Generate graphs:
    - Save the benchmark outputs into `.txt` files.
    - Run `Halide/apps/format_benchmark_output.py` on those output files to generate graphs.
-
 
 ---
 
