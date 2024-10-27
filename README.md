@@ -135,24 +135,19 @@ python3 analytics_tools/loc/count_loc.py
 Please note that this script will print out more kernels than what was reported in the paper, as ExoBLAS supports a superset of kernels compared to those included in the paper.
 
 
-#### Run performance benchmark against existing libraries (Optional, highly time-consuming)
+#### Run Performance Benchmark Against Existing Libraries (Optional, Highly Time-Consuming)
 
-Compile all the benchmark tests (Check if this is necessary or not!)
-```
-cmake --build build/avx2 --target _bench
-```
-
-To run the benchmark for Exo generated kernels:
-```
+To run the benchmark for Exo-generated kernels:
+```bash
 ctest --test-dir ./build/avx512 -R exo_
 ```
 
 To run the benchmark for the reference BLAS library:
-```
+```bash
 ctest --test-dir ./build/avx512 -R cblas_
 ```
 
-This will create a `benchmark_results` directory containing json files.
+Running these benchmarks will create a `benchmark_results` directory containing json files with the performance results.
 
 
 #### Plotting the Graphs (Optional)
