@@ -13,10 +13,11 @@ statements, and code blocks. They also support spatial navigation within a proce
 to proximate locations.
 
 Key concepts covered:
-- Finding cursors using patterns
-- Navigating using cursors
-- Applying scheduling primitives with cursors
-- Forwarding cursors after transformations
+- Finding Cursors with pattern-matching
+- Cursor navigation
+- Applying scheduling primitives using cursors
+- Cursor forwarding after code transformations
+- Defining a new scheduling operation
 """
 
 
@@ -31,8 +32,6 @@ Args:
     x (tensor): N-dimensional vector stored in DRAM
     y (tensor): M-dimensional vector stored in DRAM
 """
-
-
 @proc
 def gemv(M: size, N: size, A: f32[M, N], x: f32[N], y: f32[M]):
     assert M % 8 == 0
@@ -111,8 +110,6 @@ print()
 """
 5: Defining a new scheduling operator
 """
-
-
 def tile_2D(p, i_lp, j_lp, i_itrs, j_itrs, i_sz, j_sz):
     """
     Perform a 2D tiling of the i and j loops.
