@@ -14,22 +14,32 @@ The Zenodo archive can be found [here](https://zenodo.org/records/13997026), whi
 
 ## Functional
 
-For artifact evaluation, we made a [small example](functional.py) which demonstrates core functionalities of Cursor as discussed in the paper.
+For artifact evaluation, we created a [small example](./functional.py) that demonstrates the core functionalities of Cursor as discussed in the paper.
 
 First, install Exo:
 ```
 pip install exo-lang
 ```
 
-And run `functional.py`:
+Then, run `functional.py`:
 ```
 exocc functional.py
 ```
-In case of `ModuleNotFoundError: No module named 'attrs'` please upgrade your attrs module by `pip install --upgrade attrs`.
+If you encounter a `ModuleNotFoundError: No module named 'attrs'` error, please upgrade your attrs module by running `pip install --upgrade attrs`.
 
-You should be able to find examples from the paper as well as more detailed documentation in the source code.
+Running `exocc` on `functional.py` will generate the C code in the `functional/functional.c` file.
+It will also print out the intermediate steps of the example to demonstrate the functionalities of Cursors.
 
-The detailed documentation of Exo can be found in [docs](https://github.com/exo-lang/exo/tree/main/docs), as well as [examples](https://github.com/exo-lang/exo/tree/main/examples) that walk through Exo's usage.
+This example covers the key concepts presented in the paper:
+- Finding Cursors with pattern-matching
+- Cursor navigation
+- Applying scheduling primitives using cursors
+- Cursor forwarding after code transformations
+- Defining a new scheduling operation
+
+You can find examples from the paper as well as more detailed documentation within the source code of [functional.py](./functional.py).
+
+For more comprehensive documentation on Exo's other language features, please refer to the [docs](https://github.com/exo-lang/exo/tree/main/docs) and [examples](https://github.com/exo-lang/exo/tree/main/examples).
 
 ---
 
