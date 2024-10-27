@@ -14,7 +14,7 @@ The Zenodo archive can be found [here](https://zenodo.org/records/13997026), whi
 
 ## Functional
 
-First, install Exo:
+First, install Exo (Python>=3.9 is required):
 ```
 pip install exo-lang
 ```
