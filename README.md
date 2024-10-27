@@ -208,22 +208,14 @@ After generating the graphs, you can copy them to your local machine using the `
 
 ---
 
-### AVX512 matmul benchmark
+### Matmul Benchmarks
 
-Figure 4(b).
+This section explains Figure 4 benchmarks.
 
-TODO: Write
+#### Gemmini
 
-
-
----
-
-
-### Gemmini matmul benchmark
-
-This section provides data for Figure 4(a) and part of Figure 4(c).
-
-Unfortunately, we are not able to provide reproduction scripts for our Gemmini timings because they require access to expensive FPGA AWS instances (Firesim). However, Exo can still generate Gemmini C code, and reviewers can take a look at the generated C code and the scheduling transformation needed to reach the reported number in the paper.
+Unfortunately, we are not able to provide reproduction scripts for our Gemmini timings because they require access to expensive FPGA AWS instances (Firesim).
+However, Exo can still generate Gemmini C code, and reviewers can take a look at the generated C code and the scheduling transformation needed to reach the reported number in the paper.
 
 To view the original and scheduled matmul for Gemmini:
 
@@ -232,11 +224,27 @@ To view the original and scheduled matmul for Gemmini:
    cd ~/exo2-artifact/exo/tests/asplos25
    ```
 
-2. Run the `test_gemmini_matmul_new.py` script with pytest:
+2. Run the `test_gemmini_matmul_new.py` using pytest:
    ```bash
    python3 -m pytest test_gemmini_matmul_new.py -s
    ```
-   The script will print the original and scheduled matmul for Gemmini.
+   It will show the original and scheduled matmul for Gemmini.
+
+#### AVX512 SGEMM
+
+To generate the AVX512 sgemm code:
+
+1. Navigate to the `sgemm` directory:
+   ```bash
+   cd ~/exo2-artifact/exo/apps/x86/sgemm/
+   ```
+
+2. Run `exocc` on `sgemm.py`:
+   ```bash
+   exocc sgemm.py
+   ```
+   This will generate the `sgemm/sgemm.c` file.
+
 
 ---
 
