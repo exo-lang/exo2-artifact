@@ -14,8 +14,6 @@ The Zenodo archive can be found [here](https://zenodo.org/records/13997026), whi
 
 ## Functional
 
-For artifact evaluation, we created a [small example](./functional.py) that demonstrates the core functionalities of Cursor as discussed in the paper.
-
 First, install Exo:
 ```
 pip install exo-lang
