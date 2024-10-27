@@ -89,25 +89,40 @@ This section reproduces Figure 10.
 
 2. Compare the performance of the Exo-generated kernels against the Halide-generated kernels:
    - Navigate to `~/exo2-artifact/Halide/app/<kernel>/`.
+   For example, for blur:
+   ```bash
+   cd ~/exo2-artifact/Halide/apps/blur
+   ```
    - Create a folder called `exo_<kernel>`.
+   ```bash
+   mkdir exo_blur
+   ```
    - Copy the Exo-generated `<kernel>.c` and `<kernel>.h` files (from the previous section) into the `exo_<kernel>` folder.
+   ```bash
+   cp ~/exo2-artifact/exo/apps/x86/halide/blur/blur/blur.h exo_blur/blur.h
+   cp ~/exo2-artifact/exo/apps/x86/halide/blur/blur/blur.c exo_blur/blur.c
+   ```
    - Create a folder called `build/` and navigate into it.
+   ```bash
+   mkdir build && cd build
+   ```
    - Run `cmake ..` and `make` from within the `build/` folder.
+   ```bash
+   cmake .. && make && cd ..
+   ```
    - Run `Halide/app/<kernel>/benchmark.sh` to run the suite of benchmarks between the Exo and Halide generated kernels.
+   ```bash
+   ./benchmark.sh
+   ```
 
 3. (Optional) Generate graphs:
    - Save the benchmark outputs into `.txt` files.
    - Run `Halide/apps/halide_graph.py` on those output files to generate graphs.
-
-   For example, for blur:
    ```bash
-   cd exo2-artifact/Halide/apps/blur
-   mkdir build && cd build
-   cmake .. && make
-   cd ..
    ./benchmark.sh > results.txt
    cat results.txt | python3 ../halide_graph.py blur
    ```
+
    Follow the same steps for unsharp.
 
 ---
