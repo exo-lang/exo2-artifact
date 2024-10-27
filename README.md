@@ -95,6 +95,10 @@ This section reproduces Figure 10.
    - Run `cmake ..` and `make` from within the `build/` folder.
    - Run `Halide/app/<kernel>/benchmark.sh` to run the suite of benchmarks between the Exo and Halide generated kernels.
 
+3. (Optional) Generate graphs:
+   - Save the benchmark outputs into `.txt` files.
+   - Run `Halide/apps/halide_graph.py` on those output files to generate graphs.
+
    For example, for blur:
    ```bash
    cd exo2-artifact/Halide/apps/blur
@@ -102,13 +106,9 @@ This section reproduces Figure 10.
    cmake .. && make
    cd ..
    ./benchmark.sh > results.txt
-   cat results.txt | python3 ../format_benchmark_output.py blur
+   cat results.txt | python3 ../halide_graph.py blur
    ```
    Follow the same steps for unsharp.
-
-3. (Optional) Generate graphs:
-   - Save the benchmark outputs into `.txt` files.
-   - Run `Halide/apps/format_benchmark_output.py` on those output files to generate graphs.
 
 ---
 
