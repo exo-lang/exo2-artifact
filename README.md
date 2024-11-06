@@ -7,7 +7,7 @@ To avoid confusion, we refer to Exo 2 simply as Exo in this documentation.
 ## Availability
 
 [Exo](https://github.com/exo-lang/exo) and [ExoBLAS](https://github.com/exo-lang/ExoBLAS), our BLAS library implementation, are both publicly available on GitHub and are submodules of this artifact evaluation repository.
-The Zenodo archive can be found [here](https://zenodo.org/records/13997040), which contains a source tarball of this repository.
+The Zenodo archive can be found [here](https://doi.org/10.5281/zenodo.13997025) (doi: 10.5281/zenodo.13997025), which contains a source tarball of this repository.
 
 
 ---
