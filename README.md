@@ -213,7 +213,8 @@ Organize the `benchmark_results` directory:
 
 Plot all the kernels using the following command:
 ```bash
-python3 analytics_tools/graphing/graph.py all AVX512 benchmark_results
+python3 analytics_tools/graphing/graph.py all AVX512 benchmark_results/level1
+python3 analytics_tools/graphing/graph.py all AVX512 benchmark_results/level2
 ```
 
 The graphs will be generated in the `analytics_tools/graphing/` directory.
