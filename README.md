@@ -167,6 +167,7 @@ After installing the requirements, navigate to the `exo2-artifact/ExoBLAS` direc
 cmake --preset avx512
 cmake --build build/avx512/
 ```
+If CMake fails with the error message `Could not find a package configuration file provided by "Exo" with any of the following names...`, simply set the `Exo_DIR` environment variable to the directory containing `ExoConfig.cmake` (e.g., `export Exo_DIR=/home/ubuntu/exo2-artifact/exo/src/exo/cmake`).
 
 If unspecified in the `cmake --preset` command, CMake will attempt to find an existing BLAS implementation to link against.
 If you wish to control which existing library to compare the performance against, you can use the `-DBLA_VENDOR` option as follows:
