@@ -59,7 +59,7 @@ We have verified all the reproducibility steps on Ubuntu 22.04.5 LTS running on 
 
 ### Halide library
 
-This section reproduces Figure 10.
+This section reproduces Figure 13.
 
 #### Generate blur and unsharp kernels with Exo
 
@@ -137,8 +137,8 @@ Reviewers are encouraged to:
 
 ### BLAS Library
 
-This section reproduces Figures 7, 8(a), 11, 12, 13, 14, and 15.
-All the experiments in this section are performed in the [ExoBLAS](./ExoBLAS) submodule. Please navigate into it.
+This section reproduces Figures 8, 9(a), 14, 15, 16, 17, 18, and 19.
+All the experiments in this section are performed in the ExoBLAS submodule. Please navigate into it.
 
 #### Installing Requirements
 
@@ -153,10 +153,10 @@ All the experiments in this section are performed in the [ExoBLAS](./ExoBLAS) su
   We installed intel-mkl-2018.2-046 as mentioned in the MKL documentation, 0.8.1-2 for libblis, and 0.3.20 for OpenBLAS. After installing MKL, remember to set the `MKLROOT` environment variable to allow Exo to discover the installed location: `export MKLROOT=/opt/intel/mkl`.
 - Install Google Benchmark by following these steps:
 ```bash
-$ git clone https://github.com/google/benchmark
-$ cmake -S benchmark -B benchmark/build -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_ENABLE_TESTING=NO
-$ cmake --build benchmark/build
-$ cmake --install benchmark/build --prefix ~/.local
+git clone https://github.com/google/benchmark
+cmake -S benchmark -B benchmark/build -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_ENABLE_TESTING=NO
+cmake --build benchmark/build
+cmake --install benchmark/build --prefix ~/.local
 ```
 
 
@@ -171,9 +171,9 @@ cmake --build build/avx512/
 If unspecified in the `cmake --preset` command, CMake will attempt to find an existing BLAS implementation to link against.
 If you wish to control which existing library to compare the performance against, you can use the `-DBLA_VENDOR` option as follows:
 ```bash
-$ cmake --preset avx512 -DBLA_VENDOR=OpenBLAS         # Use OpenBLAS as a reference
-$ cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
-$ cmake --preset avx512 -DBLA_VENDOR=FLAME            # Use BLIS as a reference
+cmake --preset avx512 -DBLA_VENDOR=OpenBLAS         # Use OpenBLAS as a reference
+cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
+cmake --preset avx512 -DBLA_VENDOR=FLAME            # Use BLIS as a reference
 ```
 
 The subsequent explanations assume that you have built ExoBLAS for AVX-512 instructions to reproduce the AVX-512 results presented in the paper. However, if you wish to reproduce the AVX2 results instead, simply replace all occurrences of `avx512` with `avx2` in the following instructions.
@@ -181,7 +181,7 @@ The subsequent explanations assume that you have built ExoBLAS for AVX-512 instr
 
 #### Counting Lines of Code
 
-The following script counts the lines of code for the BLAS library, as reported in Figure 8 (a):
+The following script counts the lines of code for the BLAS library, as reported in Figure 9 (a):
 ```bash
 python3 analytics_tools/loc/count_loc.py
 ```
@@ -233,7 +233,7 @@ After generating the graphs, you can copy them to your local machine using the `
 
 ### Matmul Benchmarks
 
-This section explains Figure 4 benchmarks.
+This section explains Figure 6 benchmarks.
 
 #### Gemmini
 
@@ -273,7 +273,7 @@ To generate the AVX512 sgemm code:
 
 ### Count the number of rewrites (Optional, time-consuming)
 
-This section reproduces the data for Figure 8(b).
+This section reproduces the data for Figure 9(b).
 
 1. Navigate to the Exo directory:
    ```bash
