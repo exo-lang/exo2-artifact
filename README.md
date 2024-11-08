@@ -272,7 +272,7 @@ To generate the AVX512 sgemm code:
 
 ---
 
-### Count the number of rewrites (Optional, time-consuming)
+### Count the number of rewrites (Optional, Time-Consuming)
 
 This section reproduces the data for Figure 9(b).
 
