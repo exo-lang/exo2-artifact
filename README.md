@@ -19,6 +19,12 @@ First, install Exo (Python>=3.9 is required):
 pip install exo-lang
 ```
 
+And clone this repo:
+```
+git clone git@github.com:exo-lang/exo2-artifact.git
+git submodule update --init --recursive
+```
+
 Then, run `functional.py`:
 ```
 exocc functional.py
@@ -48,12 +54,6 @@ It is up to the reviewers if they wish to embark on that journey or not.
 
 In case you have a trouble installing dependencies (Halide, Google benchmark, cmake>=3.23, OpenBLAS, MKL, BLIS) on your local machine, **we prepared a AWS server with all the dependency setup**. Private key should be found in the artifact evaluation website. If you cannot find it, please contact [Yuka Ikarashi](mailto:yuka@csail.mit.edu) and [Kevin Qian](9kqian@gmail.com).
 We have verified all the reproducibility steps on Ubuntu 22.04.5 LTS running on the AWS server (m7i.xlarge, Xeon Platinum 8488C).
-
-To reproduce main results of paper, clone this repo.
-```
-git clone git@github.com:exo-lang/exo2-artifact.git
-git submodule update --init --recursive
-```
 
 ---
 
