@@ -217,7 +217,7 @@ python3 analytics_tools/graphing/graph.py all AVX512 benchmark_results/level1
 python3 analytics_tools/graphing/graph.py all AVX512 benchmark_results/level2
 ```
 
-The graphs will be generated in the `analytics_tools/graphing/` directory.
+The graphs will be generated in the `analytics_tools/graphing/graphs` directory.
 After generating the graphs, you can copy them to your local machine using the `scp` command to review the output.
 
 
