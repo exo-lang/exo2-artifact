@@ -49,7 +49,7 @@ For more comprehensive documentation on Exo's other language features, please re
 
 ## Reproducibility
 
-Since we support many kernels on three different hardware targets and have compared them with three existing libraries, we have marked especially time-consuming evaluations as optional.
+Since we support many kernels on three different hardware targets and have compared them with three existing libraries, **we have marked especially time-consuming evaluations as optional**.
 It is up to the reviewers if they wish to embark on that journey or not.
 
 In case you have a trouble installing dependencies (Halide, Google benchmark, cmake>=3.23, OpenBLAS, MKL, BLIS) on your local machine, **we prepared a AWS server with all the dependency setup**. Private key should be found in the artifact evaluation website. If you cannot find it, please contact [Yuka Ikarashi](mailto:yuka@csail.mit.edu) and [Kevin Qian](9kqian@gmail.com).
@@ -68,13 +68,20 @@ This section reproduces Figure 10.
    cd ~/exo2-artifact/exo/apps/x86/halide/blur
    exocc blur.py
    ```
-   This will generate `blur/blur.c`.
+   `blur.py` contains the Exo implementation of the blur kernel using Exo's Halide library interface, as shown in the paper.
+   Running `exocc` will print the optimized Exo IR to stdout and generate `blur/blur.c` in the current directory.
 
-2. Generate `unsharp.c` using Exo:
+2. Generate `unsharp.c` using Exo (takes ~2 mins to compile):
    ```bash
    cd ~/exo2-artifact/exo/apps/x86/halide/unsharp
    exocc unsharp.py
    ```
+   Similarly, running `exocc` will print the optimized Exo IR to stdout and generate `unsharp/unsharp.c` in the current directory.
+
+Reviewers are encouraged to:
+- Check the Exo implementations (`blur.py` and `unsharp.py`) and verify that they match the reported code in the paper.
+- Check the generated `blur.c` and `unsharp.c` files to confirm that they are indeed vectorized.
+
 
 #### Run performance benchmark against Halide (Optional)
 
@@ -115,7 +122,7 @@ This section reproduces Figure 10.
    ./benchmark.sh
    ```
 
-3. (Optional) Generate graphs:
+3. Generate graphs:
    - Save the benchmark outputs into `.txt` files.
    - Run `Halide/apps/halide_graph.py` on those output files to generate graphs.
    ```bash
