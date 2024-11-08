@@ -249,6 +249,7 @@ To view the original and scheduled matmul for Gemmini:
 
 2. Run the `test_gemmini_matmul_new.py` using pytest:
    ```bash
+   python3 -m pip install pytest # if not installed
    python3 -m pytest test_gemmini_matmul_new.py -s
    ```
    It will show the original and scheduled matmul for Gemmini.
