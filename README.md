@@ -22,6 +22,7 @@ pip install exo-lang
 And clone this repo:
 ```
 git clone git@github.com:exo-lang/exo2-artifact.git
+cd exo2-artifact
 git submodule update --init --recursive
 ```
 
