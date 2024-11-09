@@ -207,15 +207,23 @@ Running these benchmarks will create a `benchmark_results` directory containing 
 
 #### Plotting the Graphs (Optional)
 
-To run the graph script, you'll need to install the Linux Libertine font:
+After running the performance benchmark (see the previous section), reviewers can reproduce the graphs as presented in the paper.
+To run the graph script, you need to have the Linux Libertine font installed on your system.
 ```bash
 sudo apt-get install fonts-linuxlibertine
 fc-cache -f -v
 rm ~/.cache/matplotlib/fontlist-*.json
 ```
 
+And Python packages for plotting:
+```bash
+python3 -m pip install seaborn
+python3 -m pip install six
+```
+
 Organize the `benchmark_results` directory:
 ```bash
+chmod +x ./analytics_tools/graphing/organize.sh
 ./analytics_tools/graphing/organize.sh benchmark_results
 ```
 
@@ -229,6 +237,15 @@ The graphs will be generated in the `analytics_tools/graphing/graphs` directory.
 After generating the graphs, you can copy them to your local machine using the `scp` command to review the output.
 
 
+#### Putting It All Together (Optional, Highly Time-Consuming)
+
+We prepared a shell script that benchmarks all the configurations and produces all the reported graphs under `blas_results/`.
+Successfully running this script will require having all the dependencies installed (OpenBLAS, BLIS, MKL, Linux Libertine font, and other dependencies for the plotting script).
+Therefore, we recommend that reviewers follow the steps above manually at least once, check that dependencies are installed, and then run the script as follows:
+```bash
+chmod +x evaluate-blas.sh
+./evaluate-blas.sh
+```
 
 ---
 
