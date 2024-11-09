@@ -179,6 +179,8 @@ cmake --preset avx512 -DBLA_VENDOR=FLAME            # Use BLIS as a reference
 
 The subsequent explanations assume that you have built ExoBLAS for AVX-512 instructions to reproduce the AVX-512 results presented in the paper. However, if you wish to reproduce the AVX2 results instead, simply replace all occurrences of `avx512` with `avx2` in the following instructions.
 
+Reviewers are encouraged to check the generated files under the `build/` directory and verify that they are optimized and vectorized. For instance, the Exo-generated code for the `axpy` kernel is under `ExoBLAS/build/avx512/src/level1/exo_axpy.exo/exo_axpy.c`.
+
 
 #### Counting Lines of Code
 
@@ -188,6 +190,7 @@ python3 analytics_tools/loc/count_loc.py
 ```
 
 Please note that this script will print out more kernels than what was reported in the paper, as ExoBLAS supports a superset of kernels compared to those included in the paper.
+Reviewers are encouraged to verify that the printed lines of code match Figure 9 (a).
 
 
 #### Run Performance Benchmark Against Existing Libraries (Optional, Highly Time-Consuming)
