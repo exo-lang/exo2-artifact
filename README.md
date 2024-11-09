@@ -177,7 +177,7 @@ cmake --preset avx512 -DBLA_VENDOR=Intel10_64lp_seq # Use MKL as a reference
 cmake --preset avx512 -DBLA_VENDOR=FLAME            # Use BLIS as a reference
 ```
 
-The subsequent explanations assume that you have built ExoBLAS for AVX-512 instructions to reproduce the AVX-512 results presented in the paper. However, if you wish to reproduce the AVX2 results instead, simply replace all occurrences of `avx512` with `avx2` in the following instructions.
+The subsequent explanations assume that you have built ExoBLAS for AVX-512 instructions to reproduce the AVX-512 results presented in the paper. However, if you wish to reproduce the AVX2 results instead, simply replace all occurrences of `avx512` with `avx2` in all the commands.
 
 Reviewers are encouraged to check the generated files under the `build/` directory and verify that they are optimized and vectorized. For instance, the Exo-generated code for the `axpy` kernel is under `ExoBLAS/build/avx512/src/level1/exo_axpy.exo/exo_axpy.c`.
 
