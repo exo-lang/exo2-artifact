@@ -304,7 +304,7 @@ This section reproduces the data for Figure 9(b).
 
 2. Checkout the `count_rewrites` branch:
    ```bash
-   git checkout count_rewrites
+   git checkout origin/count_rewrites
    ```
 
 3. Rebuild and install Exo:
